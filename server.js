@@ -1,67 +1,79 @@
 /*
-WEB322- Assignment 01
+WEB322- Assignment 02
 I declare that this assignment is my own work in accordance
 with Seneca's Academic Integrity Policy
 
 Name: Nupur Sharma 
 Student ID : 123670242
-Date: 30-September-2025
+Date: 08-November-2025
 
-
-*/
+*/ 
 
 const express = require('express');
 const path = require('path');
+const projectsModule = require('./modules/projects');
+
 const app = express();
-app.set ('view engine' , 'ejs');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
-// For Vercel deployment
-app.set('views', __dirname + '/views');
 
-// Serve static files (CSS, images)
-app.use(express.static('public'));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-// Load your projects data (from Assignment 1, e.g., from a file or API)
-let projects = [];  // Replace with your actual data loading, e.g., fs.readFileSync('data/projects.json')
 
-// Routes
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'home.ejs'));  // Later change to res.render('home')
-});
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname, 'about.ejs'));
-});
+projectsModule.initialize().then(() => {
 
-app.get('/solutions/projects', (req, res) => {
-    const sector = req.query.sector;
-    let filteredProjects = projects;
-    if (sector) {
-        filteredProjects = projects.filter(p => p.sector.toLowerCase() === sector.toLowerCase());
-        if (filteredProjects.length === 0) {
-            return res.status(404).send('No projects found for this sector');
-        }
+  // Home page
+  app.get('/', async (req, res) => {
+    const projects = await projectsModule.getAllProjects().catch(() => []);
+    // Only show first 3 for cards
+    res.render('home', { projects: projects.slice(0, 3) });
+  });
+
+  // About page
+  app.get('/about', (req, res) => {
+    console.log("hello ");
+    res.render('about');
+  });
+
+  // Projects list 
+  app.get('/solutions/projects', async (req, res) => {
+    try {
+      let projects;
+      if (req.query.sector) {
+        projects = await projectsModule.getProjectsBySector(req.query.sector);
+        if (!projects.length) throw new Error("No projects found for that sector.");
+      } else {
+        projects = await projectsModule.getAllProjects();
+      }
+      res.render('projects', { projects });
+    } catch (err) {
+      res.status(404).render('404', { message: "No projects found for your request." });
     }
-    res.json(filteredProjects);  // Later change to res.render('projects', { projects: filteredProjects })
-});
+  });
 
-app.get('/solutions/projects/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const project = projects.find(p => p.id === id);
-    if (!project) {
-        return res.status(404).send('Project not found');
+  // Project details by ID
+  app.get('/solutions/projects/:id', async (req, res) => {
+    try {
+      const project = await projectsModule.getProjectById(req.params.id);
+      if (!project) throw new Error("Project not found.");
+      res.render('project', { project });
+    } catch (err) {
+      res.status(404).render('404', { message: "Sorry, project not found." });
     }
-    res.json(project);  // Later change to res.render('project', { project })
+  });
+
+  // 404 page
+  app.use((req, res) => {
+    res.status(404).render('404', { message: "Sorry, we couldn't find what you are looking for." });
+  });
+
+  // Starting 
+  app.listen(PORT, () => {
+    console.log(`Server listening on ${PORT}`);
+  });
+}).catch(err => {
+  console.log("Error in initializing ", err);
 });
-
-// Custom 404 for unmatched routes
-app.use((req, res) => {
-    res.status(404).sendFile(path.join(__dirname, '404.ejs'));
-});
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-
-});
-
