@@ -27,11 +27,11 @@ let projects = [];  // Replace with your actual data loading, e.g., fs.readFileS
 
 // Routes
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views/home.html'));  // Later change to res.render('home')
+    res.sendFile(path.join(__dirname, 'views/home.ejs'));  // Later change to res.render('home')
 });
 
 app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views/about.html'));
+    res.sendFile(path.join(__dirname, 'views/about.ejs'));
 });
 
 app.get('/solutions/projects', (req, res) => {
@@ -57,9 +57,10 @@ app.get('/solutions/projects/:id', (req, res) => {
 
 // Custom 404 for unmatched routes
 app.use((req, res) => {
-    res.status(404).sendFile(path.join(__dirname, 'views/404.html'));
+    res.status(404).sendFile(path.join(__dirname, 'views/404.ejs'));
 });
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+
 });
