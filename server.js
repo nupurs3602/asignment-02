@@ -11,7 +11,7 @@ Date: 08-November-2025
 
 const express = require('express');
 const path = require('path');
-const projectsModule = require('./modules/projects');
+const projectsModule = require('modules/project.js');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -77,3 +77,4 @@ projectsModule.initialize().then(() => {
 }).catch(err => {
   console.log("Error in initializing ", err);
 });
+
