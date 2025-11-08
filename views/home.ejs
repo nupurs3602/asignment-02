@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Climate Solutions</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@3.7.1/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-base-200 text-base-content">
+
+
+  <div class="navbar bg-base-100 shadow-md mb-6">
+    <div class="flex-1">
+      <a href="/" class="btn btn-ghost text-xl"> Climate Solutions</a>
+    </div>
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-1">
+        <li><a href="about.ejs">About</a></li>
+        <li>
+          <details>
+            <summary>Sector</summary>
+            <ul class="p-2 bg-base-100">
+              <li>Energy</li>
+              <li>Transportation</li>
+              <li>Agriculture</li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container mx-auto p-6">
+ 
+    <div class="hero bg-base-100 rounded-lg shadow-md mb-8">
+      <div class="hero-content text-center">
+        <div class="max-w-md">
+          <h1 class="text-5xl font-bold">Explore Projects</h1>
+          <p class="py-6 text-lg">Get ideas about impactfull climate change solution across variety of different areas.</p>
+          <a href="project.ejs" class="btn btn-primary">Browse Projects</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- First Project  -->
+      <div class="card bg-base-100 shadow-md">
+        <figure><img src="clime.webp" alt="Climeworks" class="rounded-t-lg" /></figure>
+        <div class="card-body">
+          <h2 class="card-title">Climeworks - Direct Air Capture</h2>
+          <p>Makes use of modular machines to pull CO2 from air and permanently stores it underground. The company began its operations in Iceland. </p>
+          <div class="card-actions justify-end">
+            <a href="climeworks.ejs" class="btn btn-outline">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Project  -->
+      <div class="card bg-base-100 shadow-md">
+        <figure><img src="greenwall.jpg" alt="Great Green Wall" class="rounded-t-lg" /></figure>
+        <div class="card-body">
+          <h2 class="card-title">Great Green Wall </h2>
+          <p>An African Union initiative to restore degraded Sahel landscape(trees, food forest etc) to reduce deserrification, sequester carbon and create green jobs. </p>
+          <div class="card-actions justify-end">
+            <a href="greenwall.ejs" class="btn btn-outline">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Third Project  -->
+      <div class="card bg-base-100 shadow-md">
+        <figure><img src="mangrove.avif" alt="Mangrove" class="rounded-t-lg" /></figure>
+        <div class="card-body">
+          <h2 class="card-title">Mangrove - "Blue Carbon" restoration projects</h2>
+          <p>Community-led mangrove planting and wetland restoration to lock carbon into coastal soils, protect coasts and support fisheries and livelihoods</p>
+          <div class="card-actions justify-end">
+            <a href="mangrove.ejs" class="btn btn-outline">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
