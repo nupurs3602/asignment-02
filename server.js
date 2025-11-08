@@ -5,7 +5,7 @@ with Seneca's Academic Integrity Policy
 
 Name: Nupur Sharma 
 Student ID : 123670242
-Date: 08-November-2025
+Date: 09-November-2025
 
 */ 
 
@@ -70,12 +70,13 @@ projectsModule.initialize().then(() => {
     res.status(404).render('404', { message: "Sorry, we couldn't find what you are looking for." });
   });
 
-  // Starting 
+
   app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
   });
 }).catch(err => {
   console.log("Error in initializing ", err);
 });
+
 
 
